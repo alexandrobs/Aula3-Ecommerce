@@ -36,20 +36,31 @@ export default {
 
 <template>
   <main>
-    <div v-for="product in products">
-      <ProductCard :product="product" @onclick="addToCart" />
-    </div>
+    <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+      <div v-for="product in products">
+        <ProductCard :product="product" @onclick="addToCart" />
+      </div>
+    </section>
   </main>
   <div>
     <h1>Carrinho</h1>
-    <div v-for="item in cart.list" :key="item.product.id">
-      <CartItem
-        :item="item"
-        @removeItem="removeFromCart"
-        @decrementItem="removeItemQuantity"
-        @incrementItem="addItemQuantity"
-      />
+    <div v-if="cart.list.length > 0" class="flex flex-col gap-4">
+      <div v-for="item in cart.list" :key="item.product.id">
+        <CartItem
+          :item="item"
+          @removeItem="removeFromCart"
+          @decrementItem="removeItemQuantity"
+          @incrementItem="addItemQuantity"
+        />
+      </div>
+    </div>
+    <div
+      v-else
+      class="border border-slate-500 bg-slate-400 rouded-sm h-64 w-1/2 flex items-center justify-center"
+    >
+      <h1>{{ 'Não existe itens no carrinho. Vamos comprar?' }}</h1>
     </div>
     <p>Total: {{ cart.getTotalPrice() }}</p>
   </div>
+  <Button label="Primevue" />
 </template>

@@ -1,10 +1,21 @@
 <template>
-  <article>
-    <h1>{{ product?.title }}</h1>
-    <p>{{ product?.description }}</p>
-    <p>Preço: R$ {{ product?.price.toFixed(2).replace('.', ',') }}</p>
-    <button @click="addToCart(product!)">Adicionar ao carrinho</button>
-  </article>
+  <Card :style="{ width: '100%', minWidth: '200px', maxWidth: '220px' }">
+    <template #header>
+      <img :src="'https://picsum.photos/200'" class="w-full object-cover" />
+    </template>
+    <template #title>
+      <h1>{{ product?.title }}</h1> </template
+    >;
+    <template #content>
+      <p>{{ product?.description }}</p>
+      <p>Preço: R$ {{ product?.price.toFixed(2).replace('.', ',') }}</p>
+    </template>
+    <template #footer>
+      <div class="flex flex-row-reverse">
+        <Button label="Adicionar ao carrinho" @click="addToCart(product!)" />
+      </div>
+    </template>
+  </Card>
 </template>
 <script lang="ts">
 import type { Product } from '@/model/product.model'
