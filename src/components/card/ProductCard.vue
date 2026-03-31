@@ -1,7 +1,11 @@
 <template>
   <Card :style="{ width: '100%', minWidth: '200px', maxWidth: '220px' }">
     <template #header>
-      <img :src="'https://picsum.photos/200'" class="w-full object-cover" />
+      <img
+        :src="'https://picsum.photos/200'"
+        class="w-full object-cover cursor-pointer"
+        @click="viewDetail(product)"
+      />
     </template>
     <template #title>
       <h1>{{ product?.title }}</h1>
@@ -12,7 +16,7 @@
     </template>
     <template #footer>
       <div class="flex flex-row-reverse">
-        <Button label="Adicionar ao carrinho" @click="addToCart(product)" />
+        <Button label="Adicionar ao carrinho" @click.stop="addToCart(product)" />
       </div>
     </template>
   </Card>
@@ -29,10 +33,13 @@ export default defineComponent({
       required: true,
     },
   },
-  emits: ['onclick'],
+  emits: ['onclick', 'view-detail'],
   methods: {
     addToCart(product: Product) {
       this.$emit('onclick', product)
+    },
+    viewDetail(product: Product) {
+      this.$emit('view-detail', product)
     },
   },
 })
